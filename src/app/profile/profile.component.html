@@ -1,1 +1,8 @@
-<p>profile works!</p>
+<div class="container" *ngIf="currentUser">
+  <header class="jumbotron">
+    <h3>
+      {{ currentUser.email }}
+    </h3>
+  </header>
+  <p>Email: {{ currentUser.email }}</p>
+</div>

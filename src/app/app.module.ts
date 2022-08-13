@@ -7,6 +7,10 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PanelUserComponent } from './panel-user/panel-user.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -14,13 +18,10 @@ import { PanelUserComponent } from './panel-user/panel-user.component';
     LoginComponent,
     HomeComponent,
     ProfileComponent,
-    PanelUserComponent
+    PanelUserComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule],
+  providers: [authInterceptorProviders],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

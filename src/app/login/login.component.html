@@ -1,1 +1,44 @@
-<p>login works!</p>
+<div class="col-md-12">
+  <div class="card card-container">
+    <form
+      *ngIf="!isLoggedIn"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          class="form-control"
+          name="email"
+          [(ngModel)]="form.email"
+          required
+          #email="ngModel"
+          [ngClass]="{ 'is-valid': f.submitted && email.errors }"
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Hasło</label>
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          [(ngModel)]="form.password"
+          required
+          #password="ngModel"
+          [ngClass]="{ 'is-valid': f.submitted && password.errors }"
+        />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Login</button>
+      </div>
+      <div class="form-group">
+        <div class="alert alert-success" *ngIf="isLoggedIn">
+          Zalogowano pomyślnie!
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
