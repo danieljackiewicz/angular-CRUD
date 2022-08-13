@@ -9,6 +9,7 @@ import { AUTH_API } from './auth.service';
 export class UserService {
   constructor(private http: HttpClient) {}
   getData(): Observable<any> {
-    return this.http.get(AUTH_API + 'location', { responseType: 'json' });
+    console.log('fds');
+    return this.http.get(AUTH_API + 'location/', { responseType: 'json' });
   }
 }
