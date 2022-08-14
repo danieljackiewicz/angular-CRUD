@@ -13,16 +13,17 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getData().subscribe({
       next: (data) => {
-        this.content = data;
+        this.content = JSON.stringify(data);
+        console.log('home', JSON.parse(data));
       },
-      error: (err) => {
-        console.log(err);
-        if (err.error) {
-          this.content = JSON.parse(err.error).message;
-        } else {
-          this.content = 'Error status' + err.status;
-        }
-      },
+      // error: (err) => {
+      //   console.log(err);
+      //   if (err.error) {
+      //     this.content = JSON.parse(err.error).message;
+      //   } else {
+      //     this.content = 'Error status' + err.status;
+      //   }
+      // },
     });
   }
 }

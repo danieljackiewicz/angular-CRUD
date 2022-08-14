@@ -15,6 +15,9 @@ export class StorageService {
   public getUser(): any {
     const user = window.localStorage.getItem(USER_KEY);
     if (user) {
+      const userObj = JSON.parse(user);
+      console.log('userobj', userObj.access);
+      console.log('user', JSON.parse(user));
       return JSON.parse(user);
     }
     return {};
