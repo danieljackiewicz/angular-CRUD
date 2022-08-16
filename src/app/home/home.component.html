@@ -1,6 +1,12 @@
 <div class="container">
-  <header class="jumbotron">
-    <h3>Content {{ content }}</h3>
-  </header>
-  <div class="content">Home component</div>
+  <div class="country list">
+    <h3>Destynacje:</h3>
+    <ol>
+      <li *ngFor="let element of results">
+        <a [routerLink]="['destination/', element.id]"
+          >{{ element.name }} Kraj: {{ element.parentLocation.name }}</a
+        >
+      </li>
+    </ol>
+  </div>
 </div>

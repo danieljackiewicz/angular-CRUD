@@ -11,4 +11,22 @@ export class UserService {
   getData(): Observable<any> {
     return this.http.get(AUTH_API + 'location/', { responseType: 'json' });
   }
+  getLocation(id: any): Observable<any> {
+    return this.http.get(AUTH_API + `location/${id}`, { responseType: 'json' });
+  }
+  createLocation(data: any): Observable<any> {
+    return this.http.post(AUTH_API + 'location/', data, {
+      responseType: 'json',
+    });
+  }
+  updateLocation(id: number, data: any): Observable<any> {
+    return this.http.put(AUTH_API + `location/${id}`, data, {
+      responseType: 'json',
+    });
+  }
+  deleteLocation(id: number): Observable<any> {
+    return this.http.delete(AUTH_API + `location/${id}`, {
+      responseType: 'json',
+    });
+  }
 }

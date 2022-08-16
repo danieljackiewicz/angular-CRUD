@@ -10,7 +10,6 @@ import { StorageService } from './_services/storage.service';
 export class AppComponent {
   title = 'CRUD';
   isLoggedIn = false;
-  username?: string;
   constructor(
     private storageService: StorageService,
     private authService: AuthService
@@ -19,7 +18,6 @@ export class AppComponent {
     this.isLoggedIn = this.storageService.isLoggedIn();
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
-      this.username = user.email;
     }
   }
   // logout(): void {

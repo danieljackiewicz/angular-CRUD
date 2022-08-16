@@ -7,15 +7,23 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  content?: string;
+  results?: any;
+  country?: [];
+
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.userService.getData().subscribe({
       next: (data) => {
-        this.content = JSON.stringify(data);
-        console.log('home', JSON.parse(data));
+        this.results = data.results;
+        console.log(data.results);
+
+        for (let i = 0; i < this.results.length; i++) {
+          console.log(this.results[i]);
+          console.log(this.results[i].parentLocation.name);
+        }
       },
+
       // error: (err) => {
       //   console.log(err);
       //   if (err.error) {
@@ -25,5 +33,8 @@ export class HomeComponent implements OnInit {
       //   }
       // },
     });
+  }
+  refresh(): void {
+    this.userService.getData();
   }
 }

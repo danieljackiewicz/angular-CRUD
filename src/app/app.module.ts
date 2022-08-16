@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DestinationDetailsComponent } from './destination-details/destination-details.component';
+// import { DestinationDetailsComponent } from './destination-details/destination-details.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     ProfileComponent,
     PanelUserComponent,
+    DestinationDetailsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    NgbModule,
+  ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
 })
