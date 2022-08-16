@@ -8,6 +8,7 @@ import { UserService } from '../_services/user.service';
 })
 export class PanelUserComponent implements OnInit {
   content?: string;
+  
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {

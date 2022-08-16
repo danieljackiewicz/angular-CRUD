@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../_services/user.service';
-
 @Component({
   selector: 'app-destination-details',
   templateUrl: './destination-details.component.html',
@@ -8,15 +8,19 @@ import { UserService } from '../_services/user.service';
 })
 export class DestinationDetailsComponent implements OnInit {
   location: any;
-  id: any;
+  public id: any;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.userService.getLocation(111).subscribe({
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.userService.getLocation(this.id).subscribe({
       next: (data) => {
         this.location = data;
-        console.log('location', this.location);
+        console.log('data', data);
       },
     });
   }
