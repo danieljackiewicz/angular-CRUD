@@ -1,0 +1,33 @@
+<button (click)="onEdit()">Edytuj</button>
+<div class="container" *ngIf="display">
+  <div class="formContainer">
+    <h3>Edytuj lokalizację</h3>
+    <form
+      name="form"
+      *ngIf="!isLoggedIn; else loggedIn"
+      #f="ngForm"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      style="display: flex; flex-direction: column; width: 300px"
+    >
+      <label>Miasto</label>
+      <input type="text" name="name" [(ngModel)]="form.name" #name="ngModel" />
+      <label>Kraj</label>
+      <input type="text" name="code" [(ngModel)]="form.code" #code="ngModel" />
+      <label>Kod Merlinx</label>
+      <input
+        type="text"
+        name="code"
+        [(ngModel)]="form.codeMerlinx"
+        #code_merlinx="ngModel"
+      />
+      <label>Rodzaj lokalizacji</label>
+      <input
+        type="text"
+        name="locationKind"
+        [(ngModel)]="form.locationKind"
+        #locationKind="ngModel"
+      />
+      <input type="submit" value="Dodaj" style="margin-top: 30px" />
+    </form>
+  </div>
+</div>

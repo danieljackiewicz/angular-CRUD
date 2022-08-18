@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../_services/user.service';
 @Component({
@@ -7,7 +7,12 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./destination-details.component.css'],
 })
 export class DestinationDetailsComponent implements OnInit {
-  location: any;
+  location: any = {
+    name: '',
+    code: '',
+    locationKind: '',
+    parentLocation: '',
+  };
   public id: any;
 
   constructor(
@@ -20,7 +25,6 @@ export class DestinationDetailsComponent implements OnInit {
     this.userService.getLocation(this.id).subscribe({
       next: (data) => {
         this.location = data;
-        console.log('data', data);
       },
     });
   }

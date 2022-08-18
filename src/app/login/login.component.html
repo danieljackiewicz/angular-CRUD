@@ -1,7 +1,7 @@
 <div class="col-md-12">
   <div class="card card-container">
     <form
-      *ngIf="!isLoggedIn"
+      *ngIf="!isLoggedIn; else loggedIn"
       name="form"
       (ngSubmit)="f.form.valid && onSubmit()"
       #f="ngForm"
@@ -34,11 +34,11 @@
       <div class="form-group">
         <button class="btn btn-primary btn-block">Login</button>
       </div>
-      <div class="form-group">
-        <div class="alert alert-success" *ngIf="isLoggedIn">
-          Zalogowano pomyślnie!
-        </div>
-      </div>
     </form>
+    <ng-template #loggedIn>
+      <ngb-alert #loggedIn [type]="'success'" [dismissible]="false">
+        <strong>Jesteś zalogowany!</strong>
+      </ngb-alert>
+    </ng-template>
   </div>
 </div>

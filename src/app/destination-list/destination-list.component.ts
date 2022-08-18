@@ -3,12 +3,13 @@ import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  templateUrl: './destination-list.component.html',
+  styleUrls: ['./destination-list.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class DestinationList implements OnInit {
   results?: any;
-  country?: [];
+  myDataArr: any = [];
+  myIdArr: any = [399, 400, 401, 402];
 
   constructor(private userService: UserService) {}
 
@@ -16,12 +17,7 @@ export class HomeComponent implements OnInit {
     this.userService.getData().subscribe({
       next: (data) => {
         this.results = data.results;
-        console.log(data.results);
-
-        for (let i = 0; i < this.results.length; i++) {
-          console.log(this.results[i]);
-          console.log(this.results[i].parentLocation.name);
-        }
+        this.myData();
       },
 
       // error: (err) => {
@@ -33,6 +29,15 @@ export class HomeComponent implements OnInit {
       //   }
       // },
     });
+  }
+  myData(): void {
+    for (let i = 0; i < this.myIdArr.length; i++) {
+      this.userService.getLocation(this.myIdArr[i]).subscribe({
+        next: (data) => {
+          this.myDataArr.push(data);
+        },
+      });
+    }
   }
   refresh(): void {
     this.userService.getData();

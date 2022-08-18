@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="button">
+    <button>
+      <a [routerLink]="['/new']">Dodaj destynację</a>
+    </button>
+  </div>
+  <div class="country list">
+    <h3>Lokalizacje:</h3>
+    <ol>
+      <li *ngFor="let element of results">
+        <a [routerLink]="['destination/', element.id]"
+          >{{ element.name }} Kraj: {{ element.parentLocation.name }}</a
+        >
+      </li>
+      <li *ngFor="let element of myDataArr">
+        <a [routerLink]="['destination/', element.id]"
+          >{{ element.name }} Kraj: {{ element.code }}</a
+        >
+      </li>
+    </ol>
+  </div>
+</div>
