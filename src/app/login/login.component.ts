@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   form: any = {
-    email: 'jackiewicz.daniel@gmail.com',
-    password: 'Rekrutacja-2022',
+    email: '',
+    password: '',
   };
   isLoggedIn = false;
   errorMessage = '';
