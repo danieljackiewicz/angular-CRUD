@@ -6,3 +6,34 @@
 .list{
     width: 300px;
 }
+.btn{
+    margin: 40px;
+}
+.btn a{
+    color: #fff;
+    text-decoration: none;
+}
+.country{
+    margin-top: 40px;
+}
+.country h3{
+    margin-left: 25px
+}
+.list{
+    list-style-type: none;
+}
+.country ul{
+    padding-left: 10px;
+}
+.list {
+    padding: 5px
+}
+.list a{
+    text-decoration: none;
+    color: #000;
+    
+}
+.list a::before{
+    content: "🌍";
+}
+

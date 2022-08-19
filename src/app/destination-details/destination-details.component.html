@@ -1,8 +1,10 @@
-<div>
-  <div>Miasto {{ location.name }}</div>
-  <div>Kraj {{ location.code }}</div>
-  <div>Kind {{ location.locationKind }}</div>
-  <div>Kod kraju {{ location.parentLocation }}</div>
+<div class="destination-details">
+  <div>Miasto: {{ location.name }}</div>
+  <div>Kraj: {{ location.code }}</div>
+  <div>Kind: {{ location.locationKind }}</div>
+  <div>Kod kraju: {{ location.parentLocation }}</div>
 </div>
-<app-delete-destination></app-delete-destination>
-<app-edit-destination></app-edit-destination>
+<div class="button-container">
+  <app-delete-destination></app-delete-destination>
+  <app-edit-destination></app-edit-destination>
+</div>

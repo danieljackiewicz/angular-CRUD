@@ -1,0 +1,10 @@
+.destination-details{
+    padding: 20px;
+    font-size: medium;
+}
+.button-container{
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

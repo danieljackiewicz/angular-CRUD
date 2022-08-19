@@ -1,6 +1,6 @@
 <div class="container">
   <div class="formContainer">
-    <h3>Dodaj lokalizację</h3>
+    <h3 class="title">Dodaj lokalizację</h3>
     <form
       name="form"
       *ngIf="!isLoggedIn; else loggedIn"
@@ -15,6 +15,7 @@
         [(ngModel)]="form.name"
         required
         #name="ngModel"
+        placeholder="wpisz nazwę miasta"
       />
       <label>Kraj</label>
       <input
@@ -23,6 +24,7 @@
         [(ngModel)]="form.code"
         required
         #code="ngModel"
+        placeholder="wpisz nazwę kraju"
       />
       <label>Kod Merlinx</label>
       <input
@@ -40,7 +42,12 @@
         required
         #locationKind="ngModel"
       />
-      <input type="submit" value="Dodaj" style="margin-top: 30px" />
+      <input
+        class="btn btn-primary btn-block input-button"
+        type="submit"
+        value="Dodaj"
+        style="margin-top: 30px"
+      />
     </form>
   </div>
 </div>
