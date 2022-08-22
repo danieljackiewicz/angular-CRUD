@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StorageService } from '../_services/storage.service';
 import { UserService } from '../_services/user.service';
 
 @Component({
@@ -11,47 +12,56 @@ export class EditDestinationComponent implements OnInit {
   form: any = {
     name: '',
     code: '',
-    codeMerlinx: '',
     locationKind: 'CR',
     parentLocation: null,
   };
-  loggedIn: TemplateRef<any> | null = null;
-  isLoggedIn = false;
-  status: string | undefined;
+  location: any = {
+    name: '',
+    code: '',
+    locationKind: '',
+    parentLocation: '',
+  };
   public id: any;
+  errorMessage: any;
+
+  isLoggedIn(): boolean {
+    return this.storageService.isLoggedIn();
+  }
+  status: string | undefined;
   display = false;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) {}
 
-  ngOnInit(): void {}
-  onSubmit(): void {
-    const { name, code, parentLocation, locationKind, codeMerlinx } = this.form;
-
-    if (this.isLoggedIn) {
+  ngOnInit(): void {
+    if (this.isLoggedIn() == true) {
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.userService.getLocation(this.id).subscribe({
+        next: (data) => {
+          this.location = data;
+        },
+      });
+    } else {
+      this.router.navigate(['/login']);
     }
+  }
+  onSubmit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.userService
-      .updateLocation(
-        this.id,
-        name,
-        code,
-        codeMerlinx,
-        locationKind,
-        parentLocation
-      )
+      .updateLocation(this.id, this.form.name, this.form.code)
       .subscribe({
         next: (data) => {
           this.status = 'Zmiany zostały zapisane';
           alert(this.status);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home/destination/', this.id]);
+        },
+        error: (err) => {
+          this.errorMessage = err.error;
+          alert(this.errorMessage);
         },
       });
-  }
-  onEdit(): void {
-    // this.display = true;
-    this.display = !this.display;
   }
 }

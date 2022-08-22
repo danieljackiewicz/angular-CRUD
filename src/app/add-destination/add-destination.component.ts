@@ -12,7 +12,7 @@ export class AddDestinationComponent implements OnInit {
   form: any = {
     name: '',
     code: '',
-    codeMerlinx: '',
+    // codeMerlinx: '',
     locationKind: 'CR',
     parentLocation: null,
   };
@@ -20,6 +20,7 @@ export class AddDestinationComponent implements OnInit {
   loggedIn: TemplateRef<any> | null = null;
   public id: any;
   public idArr: any = [];
+  errorMessage: any;
 
   constructor(
     public userService: UserService,
@@ -29,23 +30,22 @@ export class AddDestinationComponent implements OnInit {
 
   ngOnInit(): void {}
   onSubmit(): void {
-    const { name, code, parentLocation, locationKind, codeMerlinx } = this.form;
+    const { name, code, parentLocation, locationKind } = this.form;
 
-    if (this.isLoggedIn) {
-    }
     this.userService
-      .createLocation(name, code, codeMerlinx, locationKind, parentLocation)
+      .createLocation(name, code, locationKind, parentLocation)
       .subscribe({
         next: (data) => {
           this.id = data.id;
-          this.destinationList.myIdArr.push(this.id);
+          let arrOfDestList = this.destinationList.myIdArr;
+          arrOfDestList.push(this.id);
+          localStorage.setItem('id', JSON.stringify(arrOfDestList));
           this.router.navigate(['/home/destination/', this.id]);
         },
-
-        // error: (err) => {
-        //   this.errorMessage = err.error.message;
-        //   this.isLoggedIn = true;
-        // },
+        error: (err) => {
+          this.errorMessage = err.error;
+          alert(this.errorMessage);
+        },
       });
   }
 }

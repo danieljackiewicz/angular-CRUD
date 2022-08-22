@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './_services/auth.service';
+import { Router } from '@angular/router';
 import { StorageService } from './_services/storage.service';
 
 @Component({
@@ -9,27 +9,19 @@ import { StorageService } from './_services/storage.service';
 })
 export class AppComponent {
   title = 'CRUD';
-  isLoggedIn = false;
-  constructor(
-    private storageService: StorageService,
-    private authService: AuthService
-  ) {}
+  isLoggedIn = this.storageService.isLoggedIn();
+
+  constructor(private storageService: StorageService, private router: Router) {}
   ngOnInit(): void {
-    this.isLoggedIn = this.storageService.isLoggedIn();
-    if (this.isLoggedIn) {
-      const user = this.storageService.getUser();
+    if (this.isLoggedIn === true) {
+      this.router.navigate(['/home']);
+    } else {
+      this.router.navigate(['/login']);
     }
   }
-  // logout(): void {
-  //   this.authService.logout().subscribe({
-  //     next: (res) => {
-  //       console.log(res);
-  //       this.storageService.clean();
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     },
-  //   });
-  //   window.location.reload();
-  // }
+  logout(): void {
+    window.sessionStorage.clear();
+    this.router.navigate(['/login']);
+    window.location.reload();
+  }
 }

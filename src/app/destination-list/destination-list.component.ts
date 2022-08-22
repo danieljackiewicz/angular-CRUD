@@ -1,5 +1,7 @@
+import { StorageService } from './../_services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,27 +10,38 @@ import { UserService } from '../_services/user.service';
 })
 export class DestinationList implements OnInit {
   results?: any;
-  myDataArr: any = [];
-  myIdArr: any = [399, 400, 401, 402];
+  myDataArr: any = []; //array z danymi do wyświetlenia
+  localArray: any = localStorage.getItem('id');
+  myIdArr: any = []; //array z id postów
+  isLoggedIn = this.storageService.isLoggedIn();
+  errorMessage: any;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private storageService: StorageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.userService.getData().subscribe({
-      next: (data) => {
-        this.results = data.results;
-        this.myData();
-      },
-
-      // error: (err) => {
-      //   console.log(err);
-      //   if (err.error) {
-      //     this.content = JSON.parse(err.error).message;
-      //   } else {
-      //     this.content = 'Error status' + err.status;
-      //   }
-      // },
-    });
+    if (this.isLoggedIn === false) {
+      this.router.navigate(['/login']);
+    } else {
+      if (this.localArray === null) {
+        localStorage.setItem('id', JSON.stringify(this.myIdArr));
+      } else {
+        this.myIdArr = JSON.parse(this.localArray);
+        this.userService.getData().subscribe({
+          next: (data) => {
+            this.results = data.results;
+            this.myData();
+          },
+          error: (err) => {
+            this.errorMessage = err.error;
+            alert(this.errorMessage);
+          },
+        });
+      }
+    }
   }
   myData(): void {
     for (let i = 0; i < this.myIdArr.length; i++) {

@@ -1,35 +1,68 @@
-<div class="button-container">
-  <button class="btn btn-primary btn-block" (click)="onEdit()">Edytuj</button>
-</div>
-<div class="container" *ngIf="display">
+<div class="container">
   <div class="formContainer">
-    <h3>Edytuj lokalizację</h3>
+    <h3 class="title">Edytuj lokalizację</h3>
     <form
       name="form"
-      *ngIf="!isLoggedIn; else loggedIn"
       #f="ngForm"
       (ngSubmit)="f.form.valid && onSubmit()"
       style="display: flex; flex-direction: column; width: 300px"
     >
       <label>Miasto</label>
-      <input type="text" name="name" [(ngModel)]="form.name" #name="ngModel" />
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="form.name"
+        required
+        minlength="3"
+        #name="ngModel"
+        placeholder="{{ location.name }}"
+      />
+      <div
+        *ngIf="name.invalid && (name.dirty || name.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="name.errors?.['required']">To pole jest wymagane</div>
+        <div *ngIf="name.errors?.['minlength']">
+          Minimalna długość to 3 znaki
+        </div>
+      </div>
       <label>Kraj</label>
-      <input type="text" name="code" [(ngModel)]="form.code" #code="ngModel" />
-      <label>Kod Merlinx</label>
       <input
         type="text"
         name="code"
-        [(ngModel)]="form.codeMerlinx"
-        #code_merlinx="ngModel"
+        [(ngModel)]="form.code"
+        required
+        minlength="2"
+        maxlength="2"
+        #code="ngModel"
+        placeholder="{{ location.code }}"
       />
+      <div
+        *ngIf="code.invalid && (code.dirty || code.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="code.errors?.['required']">To pole jest wymagane</div>
+        <div *ngIf="code.errors?.['minlength']">
+          Kod kraju składa się z dwóch liter
+        </div>
+        <div *ngIf="code.errors?.['maxlength']">
+          Kod kraju składa się z dwóch liter
+        </div>
+      </div>
       <label>Rodzaj lokalizacji</label>
       <input
         type="text"
         name="locationKind"
         [(ngModel)]="form.locationKind"
+        required
         #locationKind="ngModel"
       />
-      <input type="submit" value="Dodaj" style="margin-top: 30px" />
+      <input
+        class="btn btn-primary btn-block input-button"
+        type="submit"
+        value="Edytuj"
+        style="margin-top: 30px"
+      />
     </form>
   </div>
 </div>

@@ -17,13 +17,12 @@ export class UserService {
   createLocation(
     name: string,
     code: string,
-    codeMerlinx: string,
     locationKind: 'CR',
-    parentLocation: number
+    parentLocation: null | number
   ): Observable<any> {
     return this.http.post(
       AUTH_API + 'location/',
-      { name, code, codeMerlinx, locationKind, parentLocation },
+      { name, code, locationKind, parentLocation },
       {
         responseType: 'json',
       }
@@ -31,15 +30,15 @@ export class UserService {
   }
   updateLocation(
     id: number,
-    name: string,
-    code: string,
-    codeMerlinx: string,
-    locationKind: 'CR',
-    parentLocation: number
+    name?: string,
+    code?: string,
+    codeMerlinx?: string | null,
+    locationKind?: 'CR',
+    parentLocation: 0 | null = null
   ): Observable<any> {
     return this.http.put(
-      AUTH_API + `location/${id}`,
-      { name, code, codeMerlinx, locationKind, parentLocation },
+      AUTH_API + `location/${id}/`,
+      { name, code, locationKind, parentLocation, codeMerlinx },
       {
         responseType: 'json',
       }

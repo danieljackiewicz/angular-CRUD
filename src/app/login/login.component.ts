@@ -12,11 +12,9 @@ export class LoginComponent implements OnInit {
     email: '',
     password: '',
   };
-  isLoggedIn = false;
   errorMessage = '';
-  loggedIn: TemplateRef<any> | null = null;
   show = true;
-
+  isLoggedIn = this.storageService.isLoggedIn();
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
@@ -24,26 +22,22 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.storageService.isLoggedIn()) {
-      this.isLoggedIn = true;
+    if (this.isLoggedIn === true) {
       this.router.navigate(['/home']);
     } else {
-      this.isLoggedIn = false;
+      this.router.navigate(['/login']);
     }
   }
   onSubmit(): void {
     const { email, password } = this.form;
-    if (this.isLoggedIn) {
-    }
     this.authService.login(email, password).subscribe({
       next: (data) => {
         this.storageService.saveUser(data);
-        this.isLoggedIn = true;
         this.reloadPage();
       },
       error: (err) => {
-        this.errorMessage = err.error.message;
-        this.isLoggedIn = true;
+        this.errorMessage = err.error.detail;
+        alert(this.errorMessage);
       },
     });
   }

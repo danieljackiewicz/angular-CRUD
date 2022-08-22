@@ -1,7 +1,7 @@
 <div class="container">
   <div class="button-container">
-    <button class="btn btn-primary btn-block">
-      <a [routerLink]="['/new']">Dodaj destynację</a>
+    <button class="btn btn-primary btn-block" [routerLink]="['/new']">
+      Dodaj destynację
     </button>
   </div>
   <div class="country">
@@ -9,12 +9,17 @@
     <ul>
       <li class="list" *ngFor="let element of results">
         <a [routerLink]="['destination/', element.id]"
-          >{{ element.name }} Kraj: {{ element.parentLocation.name }}</a
+          >{{ element.name }} Kraj: {{ element.parentLocation?.name }}</a
         >
       </li>
+    </ul>
+    <ul>
       <li class="list" *ngFor="let element of myDataArr">
-        <a [routerLink]="['destination/', element.id]"
-          >{{ element.name }} Kraj: {{ element.code }}</a
+        <a
+          *ngIf="element.id != undefined || null"
+          [routerLink]="['destination/', element.id]"
+          >{{ element.name }} Kraj: {{ element.parentLocation?.name }} Kod:
+          {{ element.code }}</a
         >
       </li>
     </ul>
